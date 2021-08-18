@@ -1,14 +1,12 @@
 <template>
-  <messages />
+  <div id="nav">
+      <router-link to="/">Home</router-link>
+  </div>
+  <router-view />
 </template>
 
 <script>
-import Messages from './components/Messages.vue'
-
 export default {
   name: 'App',
-  components: {
-    Messages,
-  }
 }
 </script>
