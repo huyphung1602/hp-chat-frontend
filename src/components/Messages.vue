@@ -39,6 +39,9 @@ export default {
 @import 'src/assets/scss/_variables.scss';
 
 .message {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   height: 48px;
   max-width: 400px;
   background: $color-white;
