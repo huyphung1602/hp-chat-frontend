@@ -10,7 +10,7 @@
         class="message-owner"
         style="padding-bottom: 8px;"
       >
-        {{ message.owner_name }}
+        {{ message.username }}
       </div>
       <div
         class="message-body"
@@ -22,15 +22,20 @@
 </template>
 
 <script>
+import { onMounted, ref } from 'vue';
+import fetchMessages from '@/api/fetchMessages.ts';
+
 export default {
-  data () {
+  setup() {
+    const messages = ref([]);
+    onMounted(async () => {
+      const data = await fetchMessages();
+      messages.value = data;
+    });
+
     return {
-      messages: [
-        { id: 1, owner_name: 'Huy Phung', body: 'Nuoc mat em lau bang tinh yeu moi' },
-        { id: 2, owner_name: 'Huy Phung', body: 'Ngay mai em di' },
-        { id: 3, owner_name: 'Huy Phung', body: 'Co dieu gi sao khong noi cung anh?' },
-      ]
-    }
+      messages,
+    };
   }
 }
 </script>
