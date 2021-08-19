@@ -5,7 +5,7 @@ export const createUser = async (name, email, password): Promise<any> => {
     name: name,
     email: email,
     password: password,
-  })
-
+  });
+  localStorage.setItem("user", JSON.stringify(data));
   return data;
 }

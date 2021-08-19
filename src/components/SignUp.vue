@@ -58,8 +58,10 @@ export default {
         errMsg.value = 'Fields are required';
         return;
       }
+      errMsg.value = '';
       try {
         await createUser(name.value, email.value, password.value);
+        window.location.replace('/');
       } catch (err) {
         errMsg.value = err.response.data.errors;
       }

@@ -1,14 +1,14 @@
 <template>
-  <div v-if="true">
-    <sign-up />
-  </div>
-  <div v-else>
+  <div v-if="isLoggedIn()">
     <div
       id="nav"
     >
         <router-link to="/">Home</router-link>
     </div>
     <router-view />
+  </div>
+  <div v-else>
+    <sign-up />
   </div>
 </template>
 
@@ -19,6 +19,18 @@ export default {
   name: 'App',
   components: {
     SignUp,
+  },
+  setup() {
+    const isLoggedIn = () => {
+      if ('user' in localStorage) {
+        return true;
+      }
+      return false;
+    }
+
+    return {
+      isLoggedIn,
+    }
   }
 }
 </script>
