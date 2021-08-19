@@ -1,8 +1,7 @@
 import { standardPost } from './ajax';
 
-export const createUser = async (name, email, password): Promise<any> => {
-  const data = await standardPost('api/v1/sign_up', {
-    name: name,
+export const createSession = async (email, password): Promise<any> => {
+  const data = await standardPost('/api/v1/login', {
     email: email,
     password: password,
   });
