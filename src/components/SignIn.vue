@@ -26,16 +26,6 @@
     >
       Login
     </button>
-    <router-link
-      to="/sign_up"
-      @click.prevent=""
-    >
-    <span
-      class="font-size-s text-danger"
-    >
-      Sign Up
-    </span>
-    </router-link>
   </div>
 </template>
 
@@ -65,7 +55,7 @@ export default {
       errMsg.value = '';
       try {
         await createSession(email.value, password.value);
-        window.location.replace('/');
+        window.location.replace('/rooms');
       } catch (err) {
         errMsg.value = err.response.data.errors;
       }

@@ -30,7 +30,13 @@
   .font-size-l {
     font-size: $font-size-l;
   }
+  .text-primary {
+    color: $color-primary;
+  }
   .text-danger {
     color: $color-danger;
+  }
+  .d-flex {
+    display: flex;
   }
 }
