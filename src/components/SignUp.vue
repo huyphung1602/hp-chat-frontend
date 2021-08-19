@@ -3,10 +3,10 @@
     <h1>Sign Up</h1>
     <span
       class="font-size-s text-danger"
-      v-if="isError"
+      v-if="errMsg !== ''"
       style="padding-bottom: 12px"
     >
-      Submit error. Please re-check your sign-up information.
+      {{ errMsg }}
     </span>
     <input
       class="sign-up-input font-size-s"
@@ -15,11 +15,13 @@
     />
     <input
       class="sign-up-input font-size-s"
+      type="email"
       v-model="email"
       placeholder="Your email"
     />
     <input
       class="sign-up-input font-size-s"
+      type="password"
       v-model="password"
       placeholder="Your password"
     />
@@ -34,6 +36,7 @@
 
 <script>
 import { ref } from 'vue';
+import { createUser } from '@/api/userApi.ts';
 
 export default {
   name: 'SignUp',
@@ -41,7 +44,7 @@ export default {
     const name = ref('');
     const email = ref('');
     const password = ref('');
-    const isError = ref(false);
+    const errMsg = ref('');
 
     const isValid = () => {
       if (name.value && email.value && password.value) {
@@ -50,20 +53,23 @@ export default {
       return false;
     }
 
-    const submit = () => {
+    const submit = async () => {
       if (!isValid()) {
-        isError.value = true;
+        errMsg.value = 'Fields are required';
         return;
       }
+      try {
+        await createUser(name.value, email.value, password.value);
+      } catch (err) {
+        errMsg.value = err.response.data.errors;
+      }
     }
-
-    console.log(name);
 
     return {
       name,
       email,
       password,
-      isError,
+      errMsg,
       submit,
     }
   }
