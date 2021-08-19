@@ -1,36 +1,14 @@
 <template>
-  <div v-if="isLoggedIn()">
-    <div
-      id="nav"
-    >
-        <router-link to="/">Home</router-link>
-    </div>
-    <router-view />
-  </div>
-  <div v-else>
-    <sign-up />
-  </div>
+  <home />
 </template>
 
 <script>
-import SignUp from '@/components/SignUp.vue';
+import Home from '@/components/Home.vue';
 
 export default {
   name: 'App',
   components: {
-    SignUp,
+    Home,
   },
-  setup() {
-    const isLoggedIn = () => {
-      if ('user' in localStorage) {
-        return true;
-      }
-      return false;
-    }
-
-    return {
-      isLoggedIn,
-    }
-  }
 }
 </script>
