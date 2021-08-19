@@ -26,6 +26,7 @@ import { onMounted, ref } from 'vue';
 import fetchMessages from '@/api/fetchMessages.ts';
 
 export default {
+  name: 'Messages',
   setup() {
     const messages = ref([]);
     onMounted(async () => {
