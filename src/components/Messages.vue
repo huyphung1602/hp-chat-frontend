@@ -13,9 +13,9 @@
         {{ message.username }}
       </div>
       <div
-        class="message-body"
+        class="message-content"
       >
-        {{ message.body }}
+        {{ message.content }}
       </div>
     </div>
   </div>
@@ -56,13 +56,11 @@ export default {
   border-radius: 2px;
   border: 1px solid $color-primary-light-2;
   box-shadow: 0px 4px 13px rgba(0, 0, 0, 0.04);
-
   .message-owner {
     font-weight: $font-weight-bold;
   }
-  .message-body {
+  .message-content {
     font-weight: $font-weight;
   }
-
 }
 </style>
