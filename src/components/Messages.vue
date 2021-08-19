@@ -23,7 +23,7 @@
 
 <script>
 import { onMounted, ref } from 'vue';
-import fetchMessages from '@/api/fetchMessages.ts';
+import { fetchMessages } from '@/api/messageApi.ts';
 
 export default {
   name: 'Messages',
