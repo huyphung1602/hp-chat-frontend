@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <h1>Rooms</h1>
+  <div class="container mx-auto flex-col mt-20">
+    <p class="text-4xl">Rooms</p>
     <div
-      class="room"
+      class="box-border h-auto max-w-md p-2 border-4 my-4"
       v-for="room in rooms"
       :key="room.id"
     >
@@ -39,27 +39,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-@import 'src/assets/scss/_variables.scss';
-
-.room {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  height: 48px;
-  max-width: 400px;
-  background: $color-white;
-  margin: 10px;
-  padding: 10px;
-  border-radius: 2px;
-  border: 1px solid $color-primary-light-2;
-  box-shadow: 0px 4px 13px rgba(0, 0, 0, 0.04);
-  .room-name {
-    font-weight: $font-weight-bold;
-  }
-  .room-owner {
-    font-weight: $font-weight;
-  }
-}
-</style>
