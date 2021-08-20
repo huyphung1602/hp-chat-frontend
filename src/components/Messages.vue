@@ -1,37 +1,41 @@
 <template>
-  <div>
-    <h1>Messages</h1>
+  <div
+    class="message"
+    v-for="message in messages"
+    :key="message.id"
+  >
     <div
-      class="message"
-      v-for="message in messages"
-      :key="message.id"
+      class="message-owner pb-2"
     >
-      <div
-        class="message-owner pb-2"
-      >
-        {{ message.username }}
-      </div>
-      <div
-        class="message-content"
-      >
-        {{ message.content }}
-      </div>
+      {{ message.owner }}
+    </div>
+    <div
+      class="message-content"
+    >
+      {{ message.content }}
     </div>
   </div>
 </template>
 
 <script>
-import { onMounted, ref } from 'vue';
-import { fetchMessages } from '@/api/messageApi.ts';
+import { ref, onMounted } from 'vue';
+import { onBeforeRouteUpdate } from 'vue-router';
+import { fetchMessages } from '@/api/roomApi.ts';
 
 export default {
   name: 'Messages',
-  setup() {
+  props: ['id'],
+  setup(props) {
     const messages = ref([]);
-    onMounted(async () => {
-      const data = await fetchMessages();
-      messages.value = data;
-    });
+    const fetchMessagesApi = id => fetchMessages(id).then(data => messages.value = data);
+
+    onMounted(() => {
+      fetchMessagesApi(props.id);
+    }), 
+    onBeforeRouteUpdate((to, from, next) => {
+      fetchMessagesApi(to.params.id);
+      next();
+    })
 
     return {
       messages,
@@ -47,7 +51,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  height: 48px;
+  height: auto;
   max-width: 400px;
   background: $color-white;
   margin: 10px;

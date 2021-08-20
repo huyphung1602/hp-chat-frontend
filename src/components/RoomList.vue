@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-6">
+  <div class="container mx-auto px-0">
     <div class="grid grid-cols-12 gap-4 h-screen p-10">
       <div class="col-span-4">
         <div
@@ -7,21 +7,19 @@
           v-for="room in rooms"
           :key="room.id"
         >
-          <div
-            class="room-name pb-2"
-          >
-            Room: {{ room.name }}
-          </div>
-          <div
-            class="room-owner"
-          >
-            Owner: {{ room.owner }}
-          </div>
+          <router-link :to="{ name: 'messages', params: { id: room.id } }">
+            <div class="room-name pb-2">
+              Room: {{ room.name }}
+            </div>
+            <div class="room-owner">
+              Owner: {{ room.owner }}
+            </div>
+          </router-link>
         </div>
       </div>
       <div class="col-span-8">
         <div
-          class="box-border h-full my-4"
+          class="box-border border-4 h-full my-4"
         >
           <router-view />
         </div>
