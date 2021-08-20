@@ -14,7 +14,7 @@
       <div
         class="room-owner"
       >
-        Owner: {{ room.content }}
+        Owner: {{ room.owner }}
       </div>
     </div>
   </div>
