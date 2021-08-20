@@ -2,9 +2,8 @@
   <div class="sign-up">
     <h1>Sign Up</h1>
     <span
-      class="font-size-s text-danger"
+      class="font-size-s text-danger pb-3"
       v-if="errMsg !== ''"
-      style="padding-bottom: 12px"
     >
       {{ errMsg }}
     </span>
@@ -26,11 +25,21 @@
       placeholder="Your password"
     />
     <button
-      class="sign-up-btn btn-primary btn-sm"
+      class="sign-up-btn btn-primary btn-sm mb-2"
       @click.prevent="submit"
     >
       Submit
     </button>
+    <router-link
+      to="/sign_in"
+      @click.prevent=""
+    >
+    <span
+      class="font-size-s text-primary"
+    >
+      Sign In
+    </span>
+    </router-link>
   </div>
 </template>
 

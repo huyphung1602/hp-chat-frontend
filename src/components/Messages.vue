@@ -7,8 +7,7 @@
       :key="message.id"
     >
       <div
-        class="message-owner"
-        style="padding-bottom: 8px;"
+        class="message-owner pb-2"
       >
         {{ message.username }}
       </div>

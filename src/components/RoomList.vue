@@ -7,8 +7,7 @@
       :key="room.id"
     >
       <div
-        class="room-name"
-        style="padding-bottom: 8px;"
+        class="room-name pb-2"
       >
         Room: {{ room.name }}
       </div>
