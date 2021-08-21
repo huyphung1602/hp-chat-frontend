@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import { createConsumer } from '@rails/actioncable';
+import { each } from 'lodash';
 import { onMounted, ref } from 'vue';
 import { fetchRooms } from '@/api/roomApi.ts';
 
@@ -36,9 +38,11 @@ export default {
   name: 'RoomList',
   setup() {
     const rooms = ref([]);
+    const consumer = createConsumer('ws://localhost:3000/cable');
     onMounted(async () => {
       const data = await fetchRooms();
       rooms.value = data;
+      each(data, room => consumer.subscriptions.create({ channel: 'RoomChannel', room_id: room.id }))
     });
 
     return {
