@@ -6,6 +6,7 @@
     "build": "vite build"
   },
   "dependencies": {
+    "@rails/actioncable": "^6.1.4-1",
     "@vitejs/plugin-vue": "^1.1.5",
     "axios": "^0.21.1",
     "typescript": "^4.2.3",

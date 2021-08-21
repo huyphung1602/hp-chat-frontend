@@ -19,6 +19,7 @@
 
 <script>
 import { ref, onMounted } from 'vue';
+import { createConsumer } from '@rails/actioncable';
 import { onBeforeRouteUpdate } from 'vue-router';
 import { fetchMessages } from '@/api/roomApi.ts';
 
@@ -28,6 +29,8 @@ export default {
   setup(props) {
     const messages = ref([]);
     const fetchMessagesApi = id => fetchMessages(id).then(data => messages.value = data);
+    const consumer = createConsumer('ws://localhost:3000/cable');
+    consumer.subscriptions.create({ channel: 'RoomChannel', room_id: props.id });
 
     onMounted(() => {
       fetchMessagesApi(props.id);
