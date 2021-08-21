@@ -64,7 +64,7 @@ export default {
       errMsg.value = '';
       try {
         await createSession(email.value, password.value);
-        window.location.replace('/rooms');
+        window.location.replace('/');
       } catch (err) {
         errMsg.value = err.response.data.errors;
       }

@@ -70,7 +70,7 @@ export default {
       errMsg.value = '';
       try {
         await createUser(name.value, email.value, password.value);
-        window.location.replace('/rooms');
+        window.location.replace('/');
       } catch (err) {
         errMsg.value = err.response.data.errors;
       }
