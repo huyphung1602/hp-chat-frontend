@@ -1,19 +1,5 @@
 import { createStore } from 'vuex'
-
-const messages = {
-  state: () => ({
-
-  }),
-  mutations: {
-
-  },
-  actions: {
-
-  },
-  getters: {
-
-  },
-}
+import messages from './messageStore.js';
 
 const store = createStore({
   modules: {
