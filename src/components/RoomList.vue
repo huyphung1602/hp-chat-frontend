@@ -29,20 +29,24 @@
 </template>
 
 <script>
-import { createConsumer } from '@rails/actioncable';
 import { each } from 'lodash';
 import { onMounted, ref } from 'vue';
+import consumer from '@/api/consumer.ts';
 import { fetchRooms } from '@/api/roomApi.ts';
 
 export default {
   name: 'RoomList',
   setup() {
     const rooms = ref([]);
-    const consumer = createConsumer('ws://localhost:3000/cable');
+    const subscribeWebSocket = room => consumer.subscriptions.create({ channel: 'RoomChannel', room_id: room.id }, {
+      received(data) {
+        console.log(data);
+      },
+    });
     onMounted(async () => {
       const data = await fetchRooms();
       rooms.value = data;
-      each(data, room => consumer.subscriptions.create({ channel: 'RoomChannel', room_id: room.id }))
+      each(data, room => subscribeWebSocket(room));
     });
 
     return {
