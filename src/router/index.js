@@ -46,13 +46,22 @@ const getLogginStatus = async () => {
 };
 
 router.beforeEach(async (to, from, next) => {
+  const isLoggedIn = await getLogginStatus();
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    const isLoggedIn = await getLogginStatus();
     if (!isLoggedIn) {
       next({
         path: '/sign_in',
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  } else if (to.matched.some(record => record.path.includes('/sign'))) {
+    if (isLoggedIn) {
+      next({
+        path: '/',
         query: { redirect: to.fullPath }
       })
     } else {
