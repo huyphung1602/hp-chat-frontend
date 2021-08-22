@@ -25,14 +25,14 @@ export default {
   name: 'Room',
   props: ['id'],
   setup(props) {
-    const store = useStore()
+    const store = useStore();
     const fetchRoomMessages = roomId => store.dispatch('fetchMessages', roomId);
     onMounted(() => {
       fetchRoomMessages(props.id);
     })
 
     return {
-      messages: computed(() => store.state.room.rooms[`${props.id}`]),
+      messages: computed(() => store.getters.roomMessages(props.id)),
     };
   }
 }

@@ -4,6 +4,7 @@ import SignUp from '@/components/SignUp.vue';
 import RoomList from '@/components/RoomList.vue';
 import Room from '@/components/Room.vue';
 import { checkLoginStatus } from '@/api/sessionApi.ts';
+import store from '@/store';
 
 const routes = [
   {
@@ -35,12 +36,21 @@ const router = createRouter({
   routes,
 });
 
+const getLogginStatus = async () => {
+  if (store.getters.isLoggedIn) {
+    return store.getters.isLoggedIn;
+  }
+  const data = await checkLoginStatus();
+  store.dispatch('setLoginStatus', data.logged_in);
+  return data.logged_in;
+};
+
 router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    const loggedIn = await checkLoginStatus();
-    if (!loggedIn.logged_in) {
+    const isLoggedIn = await getLogginStatus();
+    if (!isLoggedIn) {
       next({
         path: '/sign_in',
         query: { redirect: to.fullPath }

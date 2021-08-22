@@ -20,8 +20,8 @@ const roomStore = {
     }
   },
   getters: {
-    roomMessages (state, roomId) {
-      return state.messages.filter(message => message.roomId === roomId);
+    roomMessages: (state) => (roomId) =>  {
+      return state.rooms[`${roomId}`] || [];
     }
   },
 }
