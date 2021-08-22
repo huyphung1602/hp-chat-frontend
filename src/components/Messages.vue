@@ -18,27 +18,31 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
+import { ref, computed } from 'vue';
 import { onBeforeRouteUpdate } from 'vue-router';
 import { fetchMessages } from '@/api/roomApi.ts';
+import { useStore } from 'vuex'
 
 export default {
   name: 'Messages',
   props: ['id'],
   setup(props) {
-    const messages = ref([]);
-    const fetchMessagesApi = id => fetchMessages(id).then(data => messages.value = data);
+    // const messages = ref([]);
+    // const fetchMessagesApi = id => fetchMessages(id).then(data => messages.value = data);
 
-    onMounted(() => {
-      fetchMessagesApi(props.id);
-    }), 
-    onBeforeRouteUpdate((to, from, next) => {
-      fetchMessagesApi(to.params.id);
-      next();
-    })
+    // onMounted(() => {
+    //   fetchMessagesApi(props.id);
+    // }), 
+    // onBeforeRouteUpdate((to, from, next) => {
+    //   fetchMessagesApi(to.params.id);
+    //   next();
+    // })
+
+    const store = useStore()
+    store.dispatch('fetchMessages', props.id);
 
     return {
-      messages,
+      messages: computed(() => store.state.messages.messages),
     };
   }
 }

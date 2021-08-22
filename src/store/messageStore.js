@@ -1,4 +1,4 @@
-import { fetchMessagesApi } from '@/api/roomApi.ts';
+import { fetchMessages as fetchMessagesApi } from '@/api/roomApi.ts';
 
 const messageStore = {
   state: () => ({
@@ -10,7 +10,7 @@ const messageStore = {
     }
   },
   actions: {
-    async fetchMessages ({ dispatch, commit }, roomId) {
+    async fetchMessages ({ commit }, roomId) {
       commit('fetchMessages', await fetchMessagesApi(roomId));
     }
   },
