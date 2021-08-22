@@ -1,9 +1,9 @@
 import { createStore } from 'vuex'
-import messages from './messageStore.js';
+import room from './roomStore.js';
 
 const store = createStore({
   modules: {
-    messages,
+    room,
   }
 })
 

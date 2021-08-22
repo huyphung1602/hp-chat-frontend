@@ -3,11 +3,12 @@
     <div class="grid grid-cols-12 gap-4 h-screen p-10">
       <div class="col-span-4">
         <div
-          class="box-border p-2 border-4 my-4"
+          class="box-border p-2 border-4 mb-5"
           v-for="room in rooms"
           :key="room.id"
+          @click.prevent="fetchRoomMessages(room.id)"
         >
-          <router-link :to="{ name: 'messages', params: { id: room.id } }">
+          <router-link :to="{ name: 'room', params: { id: room.id } }">
             <div class="room-name pb-2">
               Room: {{ room.name }}
             </div>
@@ -19,7 +20,7 @@
       </div>
       <div class="col-span-8">
         <div
-          class="box-border border-4 h-full my-4"
+          class="box-border border-4 h-full"
         >
           <router-view />
         </div>
@@ -33,6 +34,7 @@ import { each } from 'lodash';
 import { onMounted, ref } from 'vue';
 import consumer from '@/api/consumer.ts';
 import { fetchRooms } from '@/api/roomApi.ts';
+import { useStore } from 'vuex'
 
 export default {
   name: 'RoomList',
@@ -43,6 +45,10 @@ export default {
         console.log(data);
       },
     });
+    
+    const store = useStore()
+    const fetchRoomMessages = roomId => store.dispatch('fetchMessages', roomId);
+
     onMounted(async () => {
       const data = await fetchRooms();
       rooms.value = data;
@@ -51,6 +57,7 @@ export default {
 
     return {
       rooms,
+      fetchRoomMessages,
     };
   }
 }

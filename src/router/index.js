@@ -2,7 +2,7 @@ import { createWebHistory, createRouter } from 'vue-router';
 import SignIn from '@/components/SignIn.vue';
 import SignUp from '@/components/SignUp.vue';
 import RoomList from '@/components/RoomList.vue';
-import Messages from '@/components/Messages.vue';
+import Room from '@/components/Room.vue';
 import { checkLoginStatus } from '@/api/sessionApi.ts';
 
 const routes = [
@@ -13,9 +13,9 @@ const routes = [
     children: [
       {
         path: 'room/:id',
-        name: 'messages',
+        name: 'room',
         props: true,
-        component: Messages,
+        component: Room,
         meta: { requiresAuth: true },
       },
     ],
