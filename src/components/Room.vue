@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex'
 
 export default {
@@ -26,6 +26,11 @@ export default {
   props: ['id'],
   setup(props) {
     const store = useStore()
+    const fetchRoomMessages = roomId => store.dispatch('fetchMessages', roomId);
+    onMounted(() => {
+      fetchRoomMessages(props.id);
+    })
+
     return {
       messages: computed(() => store.state.room.rooms[`${props.id}`]),
     };
