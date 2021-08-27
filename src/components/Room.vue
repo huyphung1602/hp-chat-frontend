@@ -23,13 +23,13 @@
       type="text"
       placeholder="Type your message"
       class="m-4 p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-400"
-      @keyup.enter="onEnter(newMessage)"
+      @keyup.enter="onEnter()"
     />
   </div>
 </template>
 
 <script>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import { createMessage } from '@/api/messageApi.ts'
 
@@ -38,18 +38,21 @@ export default {
   props: ['id'],
   setup(props) {
     const store = useStore();
+    const newMessage = ref('');
     const fetchRoomMessages = roomId => store.dispatch('fetchMessages', roomId);
     onMounted(() => {
       fetchRoomMessages(props.id);
     })
 
-    const onEnter = newMessage => {
-      createMessage(newMessage, props.id);
+    const onEnter = () => {
+      createMessage(newMessage.value, props.id);
+      newMessage.value = '';
     }
 
     return {
       messages: computed(() => store.getters.roomMessages(props.id)),
       onEnter,
+      newMessage,
     };
   }
 }
