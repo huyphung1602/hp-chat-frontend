@@ -1,25 +1,37 @@
 <template>
-  <div
-    class="message"
-    v-for="message in messages"
-    :key="message.id"
-  >
-    <div
-      class="message-owner pb-2"
-    >
-      {{ message.owner }}
+  <div class="flex flex-col justify-between h-full">
+    <div>
+      <div
+        class="message"
+        v-for="message in messages"
+        :key="message.id"
+      >
+        <div
+          class="message-owner pb-2"
+        >
+          {{ message.owner }}
+        </div>
+        <div
+          class="message-content"
+        >
+          {{ message.content }}
+        </div>
+      </div>  
     </div>
-    <div
-      class="message-content"
-    >
-      {{ message.content }}
-    </div>
+    <input
+      v-model="newMessage"
+      type="text"
+      placeholder="Type your message"
+      class="m-4 p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-400"
+      @keyup.enter="onEnter(newMessage)"
+    />
   </div>
 </template>
 
 <script>
 import { computed, onMounted } from 'vue';
-import { useStore } from 'vuex'
+import { useStore } from 'vuex';
+import { createMessage } from '@/api/messageApi.ts'
 
 export default {
   name: 'Room',
@@ -31,8 +43,13 @@ export default {
       fetchRoomMessages(props.id);
     })
 
+    const onEnter = newMessage => {
+      createMessage(newMessage, props.id);
+    }
+
     return {
       messages: computed(() => store.getters.roomMessages(props.id)),
+      onEnter,
     };
   }
 }

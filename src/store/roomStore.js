@@ -7,6 +7,9 @@ const roomStore = {
   mutations: {
     fetchMessages (state, { roomId, messages }) {
       state.rooms[`${roomId}`] = messages;
+    },
+    appendMessage (state, { roomId, message }) {
+      state.rooms[`${roomId}`].push(message);
     }
   },
   actions: {

@@ -43,6 +43,10 @@ export default {
     const subscribeWebSocket = room => consumer.subscriptions.create({ channel: 'RoomChannel', room_id: room.id }, {
       received(data) {
         console.log(data);
+        store.commit('appendMessage', {
+          roomId: room.id,
+          message: data,
+        });
       },
     });
     
