@@ -1,8 +1,8 @@
 <template>
-  <div class="grid grid-cols-12 gap-4 h-screen p-10 bg-gray-50">
+  <div class="grid grid-cols-12 bg-gray-50 h-screen overflow-hidden">
     <div class="col-span-2">
       <div
-        class="border border-gray-200 shadow rounded-md p-4 mb-5"
+        class="border border-gray-200 p-4"
         :class="{'active-room': activeRoomId === room.id }"
         v-for="room in rooms"
         :key="room.id"
@@ -20,7 +20,7 @@
     </div>
     <div class="col-span-10">
       <div
-        class="border border-gray-200 shadow rounded-md h-full"
+        class="border border-gray-200"
       >
         <router-view />
       </div>

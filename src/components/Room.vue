@@ -1,20 +1,22 @@
 <template>
-  <div class="flex flex-col justify-between h-full">
-    <div class="m-4 mx-10">
-      <div
-        v-for="message in messages"
-        :key="message.id"
-      >
+  <div class="flex flex-col justify-between h-screen">
+    <div class="overflow-y-auto">
+      <div class="m-4 mx-10">
         <div
-          v-if="message.owner.id !== message.previousOwnerId"
-          class="font-bold pt-4 pb-2"
+          v-for="message in messages"
+          :key="message.id"
         >
-          {{ message.owner.name }}
-        </div>
-        <div
-          class="font-normal text-justify pb-2"
-        >
-          {{ message.content }}
+          <div
+            v-if="message.owner.id !== message.previousOwnerId"
+            class="font-bold pt-4 pb-2"
+          >
+            {{ message.owner.name }}
+          </div>
+          <div
+            class="font-normal text-justify pb-2"
+          >
+            {{ message.content }}
+          </div>
         </div>
       </div>
     </div>
