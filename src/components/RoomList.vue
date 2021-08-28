@@ -2,13 +2,13 @@
   <div class="grid grid-cols-12 bg-gray-50 h-screen overflow-hidden">
     <div class="col-span-2">
       <div
-        class="border border-gray-200 p-4 cursor-pointer"
-        :class="{'active-room': activeRoomId === room.id }"
+        class="border border-gray-200 py-2 px-4 cursor-pointer"
+        :class="{'active-room shadow': activeRoomId === room.id }"
         v-for="room in rooms"
         :key="room.id"
         @click.prevent="fetchRoomMessages(room.id)"
       >
-        <div class="font-normal pb-2">
+        <div class="font-normal pb-1">
           {{ room.name }}
         </div>
         <div class="font-semibold">
