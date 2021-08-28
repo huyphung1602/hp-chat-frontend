@@ -2,20 +2,18 @@
   <div class="grid grid-cols-12 bg-gray-50 h-screen overflow-hidden">
     <div class="col-span-2">
       <div
-        class="border border-gray-200 p-4"
+        class="border border-gray-200 p-4 cursor-pointer"
         :class="{'active-room': activeRoomId === room.id }"
         v-for="room in rooms"
         :key="room.id"
         @click.prevent="fetchRoomMessages(room.id)"
       >
-        <router-link :to="{ name: 'room', params: { id: room.id } }">
-          <div class="font-normal pb-2">
-            {{ room.name }}
-          </div>
-          <div class="font-semibold">
-            Owner: {{ room.owner.name }}
-          </div>
-        </router-link>
+        <div class="font-normal pb-2">
+          {{ room.name }}
+        </div>
+        <div class="font-semibold">
+          Owner: {{ room.owner.name }}
+        </div>
       </div>
     </div>
     <div class="col-span-10">
@@ -56,6 +54,7 @@ export default {
     const fetchRoomMessages = roomId => {
       store.dispatch('fetchMessages', roomId);
       activeRoomId.value = roomId;
+      router.push({ name: 'room', params: { id: roomId }});
     };
 
     onMounted(async () => {
