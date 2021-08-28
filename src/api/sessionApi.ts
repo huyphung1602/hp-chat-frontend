@@ -8,7 +8,7 @@ export const createSession = async (email, password): Promise<any> => {
   return data;
 }
 
-export const checkLoginStatus = async (): Promise<any> => {
-  const data = await standardGet('/api/v1/logged_in');
+export const fetchCurrentUserInfo = async (): Promise<any> => {
+  const data = await standardGet('/api/v1/current_user_info');
   return data;
 }

@@ -1,29 +1,27 @@
 <template>
-  <div class="container mx-auto px-0">
-    <div class="grid grid-cols-12 gap-4 h-screen p-10">
-      <div class="col-span-4">
-        <div
-          class="border border-gray-200 shadow-sm rounded-md p-2 mb-5"
-          v-for="room in rooms"
-          :key="room.id"
-          @click.prevent="fetchRoomMessages(room.id)"
-        >
-          <router-link :to="{ name: 'room', params: { id: room.id } }">
-            <div class="font-normal pb-2">
-              Room: {{ room.name }}
-            </div>
-            <div class="font-semibold">
-              Owner: {{ room.owner }}
-            </div>
-          </router-link>
-        </div>
+  <div class="grid grid-cols-12 gap-4 h-screen p-10 bg-gray-100">
+    <div class="col-span-2">
+      <div
+        class="border border-gray-200 shadow rounded-md p-2 mb-5"
+        v-for="room in rooms"
+        :key="room.id"
+        @click.prevent="fetchRoomMessages(room.id)"
+      >
+        <router-link :to="{ name: 'room', params: { id: room.id } }">
+          <div class="font-normal pb-2">
+            Room: {{ room.name }}
+          </div>
+          <div class="font-semibold">
+            Owner: {{ room.owner }}
+          </div>
+        </router-link>
       </div>
-      <div class="col-span-8">
-        <div
-          class="border border-gray-200 shadow-sm rounded-md h-full"
-        >
-          <router-view />
-        </div>
+    </div>
+    <div class="col-span-10">
+      <div
+        class="border border-gray-200 shadow rounded-md h-full"
+      >
+        <router-view />
       </div>
     </div>
   </div>

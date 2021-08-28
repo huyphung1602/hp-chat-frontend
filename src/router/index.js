@@ -3,7 +3,7 @@ import SignIn from '@/components/SignIn.vue';
 import SignUp from '@/components/SignUp.vue';
 import RoomList from '@/components/RoomList.vue';
 import Room from '@/components/Room.vue';
-import { checkLoginStatus } from '@/api/sessionApi.ts';
+import { fetchCurrentUserInfo } from '@/api/sessionApi.ts';
 import store from '@/store';
 
 const routes = [
@@ -40,8 +40,12 @@ const getLogginStatus = async () => {
   if (store.getters.isLoggedIn) {
     return store.getters.isLoggedIn;
   }
-  const data = await checkLoginStatus();
+  const data = await fetchCurrentUserInfo();
   store.dispatch('setLoginStatus', data.logged_in);
+  store.dispatch('setCurrentUser', {
+    id: data.id,
+    name: data.name,
+  })
   return data.logged_in;
 };
 

@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-col justify-between h-full">
+  <div class="flex flex-col justify-between h-full m-2">
     <div>
       <div
-        class="flex flex-col flex-start message border border-gray-200 shadow-sm rounded-md bg-transparent"
+        class="flex flex-col flex-start message border border-gray-200 shadow rounded-md bg-transparent"
         v-for="message in messages"
         :key="message.id"
       >
@@ -63,7 +63,7 @@ export default {
 
 .message {
   height: auto;
-  max-width: 500px;
+  max-width: 700px;
   margin: 10px;
   padding: 10px;
 }
