@@ -1,22 +1,22 @@
 <template>
-  <div class="flex flex-col justify-between h-full m-2">
-    <div>
+  <div class="flex flex-col justify-between h-full">
+    <div class="m-4 mx-10">
       <div
-        class="flex flex-col flex-start message border border-gray-200 shadow rounded-md bg-transparent"
         v-for="message in messages"
         :key="message.id"
       >
         <div
-          class="font-bold pb-2"
+          v-if="message.owner.id !== message.previousOwnerId"
+          class="font-bold pt-4 pb-2"
         >
-          {{ message.owner }}
+          {{ message.owner.name }}
         </div>
         <div
-          class="font-normal text-left"
+          class="font-normal text-justify pb-2"
         >
           {{ message.content }}
         </div>
-      </div>  
+      </div>
     </div>
     <input
       v-model="newMessage"
@@ -39,6 +39,7 @@ export default {
   setup(props) {
     const store = useStore();
     const newMessage = ref('');
+    const currentUser = store.getters.currentUser;
     const fetchRoomMessages = roomId => store.dispatch('fetchMessages', roomId);
     onMounted(() => {
       fetchRoomMessages(props.id);
@@ -53,6 +54,7 @@ export default {
       messages: computed(() => store.getters.roomMessages(props.id)),
       onEnter,
       newMessage,
+      currentUser,
     };
   }
 }
@@ -66,5 +68,13 @@ export default {
   max-width: 700px;
   margin: 10px;
   padding: 10px;
+  .owner-message {
+    position: absolute;
+    right: 0px;
+  }
+  .non-owner-message {
+    position: absolute;
+    left: 0px;
+  }
 }
 </style>
