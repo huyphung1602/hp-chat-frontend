@@ -21,6 +21,7 @@
         type="password"
         v-model="password"
         placeholder="Your password"
+        @keyup.enter="submit"
       />
       <button
         class="rounded-md bg-indigo-600 font-extrabold text-white hover:bg-indigo-900 focus::bg-indigo-900 focus:outline-none p-2 my-4"
@@ -86,18 +87,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-@import 'src/assets/scss/_variables.scss';
-
-.sign-in {
-  position: absolute;
-  width: 300px;
-  height: 400px;
-  top: 50%;
-  left: 50%;
-  .sign-in-btn {
-    min-width: 318px;
-  }
-}
-</style>
