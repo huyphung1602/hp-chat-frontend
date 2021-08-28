@@ -1,6 +1,13 @@
 <template>
-  <div class="flex flex-col justify-between h-screen">
-    <div class="overflow-y-auto">
+  <div class="flex flex-col h-screen">
+    <div
+      class="h-20 flex-shrink-0 flex items-center justify-start border-b border-gray-200 px-10 shadow-sm"
+    >
+      <div class="font-bold">
+        {{ room.name }}
+      </div>
+    </div>
+    <div class="overflow-y-scroll h-full">
       <div class="m-4 mx-10">
         <div
           v-for="message in messages"
@@ -8,12 +15,12 @@
         >
           <div
             v-if="message.owner.id !== message.previousOwnerId"
-            class="font-bold pt-4 pb-2"
+            class="font-bold pt-4"
           >
             {{ message.owner.name }}
           </div>
           <div
-            class="font-normal text-justify pb-2"
+            class="font-normal text-justify"
           >
             {{ message.content }}
           </div>
@@ -31,7 +38,7 @@
 </template>
 
 <script>
-import { computed, onMounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 import { createMessage } from '@/api/messageApi.ts'
 
@@ -42,18 +49,16 @@ export default {
     const store = useStore();
     const newMessage = ref('');
     const currentUser = store.getters.currentUser;
-    const fetchRoomMessages = roomId => store.dispatch('fetchMessages', roomId);
-    onMounted(() => {
-      fetchRoomMessages(props.id);
-    })
+    const roomId = computed(() => parseInt(props.id));
 
     const onEnter = () => {
-      createMessage(newMessage.value, props.id);
+      createMessage(newMessage.value, roomId.value);
       newMessage.value = '';
     }
 
     return {
-      messages: computed(() => store.getters.roomMessages(props.id)),
+      messages: computed(() => store.getters.roomMessages(roomId.value)),
+      room: computed(() => store.getters.roomById(roomId.value)),
       onEnter,
       newMessage,
       currentUser,

@@ -1,27 +1,32 @@
 <template>
-  <div class="grid grid-cols-12 bg-gray-50 h-screen overflow-hidden">
-    <div class="col-span-2">
+  <div class="relative grid grid-cols-12 bg-gray-50 overflow-hidden">
+    <div class="col-span-2 bg-indigo-50 h-screen">
       <div
-        class="border border-gray-200 py-2 px-4 cursor-pointer"
-        :class="{'active-room shadow': activeRoomId === room.id }"
-        v-for="room in rooms"
-        :key="room.id"
-        @click.prevent="fetchRoomMessages(room.id)"
+        class="h-20 flex items-center justify-start border-b border-gray-200 px-4 shadow-sm"
       >
-        <div class="font-normal pb-1">
-          {{ room.name }}
+        <div class="font-bold text-center">
+          {{ currentUser.name }}
         </div>
-        <div class="font-semibold">
-          Owner: {{ room.owner.name }}
+      </div>
+      <div class="overflow-y-auto h-full">
+        <div
+          class="border-b border-gray-200 py-2 px-4 cursor-pointer"
+          :class="{'active-room shadow': activeRoomId === room.id }"
+          v-for="room in rooms"
+          :key="room.id"
+          @click.prevent="fetchRoomMessages(room.id)"
+        >
+          <div class="font-normal pb-1">
+            {{ room.name }}
+          </div>
+          <div class="font-semibold">
+            Owner: {{ room.owner.name }}
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-span-10">
-      <div
-        class="border border-gray-200"
-      >
-        <router-view />
-      </div>
+    <div class="border-l col-span-10">
+      <router-view />
     </div>
   </div>
 </template>
@@ -30,7 +35,6 @@
 import { each } from 'lodash';
 import { onMounted, ref } from 'vue';
 import consumer from '@/api/consumer.ts';
-import { fetchRooms } from '@/api/roomApi.ts';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
@@ -39,7 +43,10 @@ export default {
   setup() {
     const rooms = ref([]);
     const activeRoomId = ref();
+
+    const store = useStore()
     const router = useRouter();
+    const currentUser = store.getters.currentUser;
 
     const subscribeWebSocket = room => consumer.subscriptions.create({ channel: 'RoomChannel', room_id: room.id }, {
       received(data) {
@@ -50,7 +57,6 @@ export default {
       },
     });
     
-    const store = useStore()
     const fetchRoomMessages = roomId => {
       store.dispatch('fetchMessages', roomId);
       activeRoomId.value = roomId;
@@ -58,24 +64,25 @@ export default {
     };
 
     onMounted(async () => {
-      const data = await fetchRooms();
-      rooms.value = data;
+      await store.dispatch('fetchRooms');
+      rooms.value = store.getters.rooms;
 
-      if (data.length !== 0) {
+      if (rooms.value.length > 0) {
         // Fetch default active room
-        const defaultRoomId = data[0].id;
+        const defaultRoomId = rooms.value[0].id;
         activeRoomId.value = defaultRoomId;
         store.dispatch('fetchMessages', defaultRoomId);
         router.push({ name: 'room', params: { id: defaultRoomId }});
       }
 
-      each(data, room => subscribeWebSocket(room));
+      each(rooms.value, room => subscribeWebSocket(room));
     });
 
     return {
       rooms,
       fetchRoomMessages,
       activeRoomId,
+      currentUser,
     };
   }
 }
