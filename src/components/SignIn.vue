@@ -1,50 +1,52 @@
 <template>
-  <div class="sign-in">
-    <h1>Sign In</h1>
-    <span
-      class="font-size-s text-danger pb-3"
-      v-if="errMsg !== ''"
-    >
-      {{ errMsg }}
-    </span>
-    <input
-      class="sign-in-input font-size-s"
-      type="email"
-      v-model="email"
-      placeholder="Your email"
-    />
-    <input
-      class="sign-in-input font-size-s"
-      type="password"
-      v-model="password"
-      placeholder="Your password"
-    />
-    <button
-      class="sign-in-btn btn-primary btn-sm mb-2"
-      @click.prevent="submit"
-    >
-      Login
-    </button>
-    <router-link
-      to="/sign_up"
-      @click.prevent=""
-    >
-    <span
-      class="font-size-s text-primary"
-    >
-      Sign Up
-    </span>
-    </router-link>
+  <div class="flex items-center justify-center h-screen">
+    <div class="flex flex-col w-80">
+      <div class="text-4xl font-bold text-left text-indigo-700 pb-2">
+        Sign In
+      </div>
+      <span
+        class="text-base text-red-600 pb-2"
+        v-if="errMsg !== ''"
+      >
+        {{ errMsg }}
+      </span>
+      <input
+        class="p-2 my-4 border rounded-md focus:outline-none focus:ring focus:border-blue-400"
+        type="email"
+        v-model="email"
+        placeholder="Your email"
+      />
+      <input
+        class="p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-400"
+        type="password"
+        v-model="password"
+        placeholder="Your password"
+      />
+      <button
+        class="rounded-md bg-indigo-600 font-extrabold text-white hover:bg-indigo-900 focus::bg-indigo-900 focus:outline-none p-2 my-4"
+        @click.prevent="submit"
+      >
+        Login
+      </button>
+        <button
+          class="rounded-md bg-green-600 font-extrabold text-white hover:bg-green-900 focus::bg-green-900 focus:outline-none p-2"
+          @click.prevent="goToSignUp"
+        >
+          Sign Up
+        </button>
+    </div>
   </div>
 </template>
 
 <script>
 import { ref } from 'vue';
 import { createSession } from '@/api/sessionApi.ts';
+import { useRouter } from 'vue-router';
 
 export default {
   name: 'SignIn',
   setup() {
+    const router = useRouter();
     const email = ref('');
     const password = ref('');
     const errMsg = ref('');
@@ -70,11 +72,16 @@ export default {
       }
     }
 
+    const goToSignUp = () => {
+      router.push({ path: '/sign_up' });
+    }
+
     return {
       email,
       password,
       errMsg,
       submit,
+      goToSignUp,
     }
   }
 }
@@ -84,18 +91,11 @@ export default {
 @import 'src/assets/scss/_variables.scss';
 
 .sign-in {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  .sign-in-input {
-    height: 24px;
-    min-width: 300px;
-    margin: 0px 0px 12px 0px;
-    padding: 8px;
-    border-radius: 2px;
-    border: 1px solid $color-primary-light-1;
-    box-shadow: 0px 4px 13px rgba(0, 0, 0, 0.04);
-  }
+  position: absolute;
+  width: 300px;
+  height: 400px;
+  top: 50%;
+  left: 50%;
   .sign-in-btn {
     min-width: 318px;
   }
