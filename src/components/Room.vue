@@ -2,17 +2,17 @@
   <div class="flex flex-col justify-between h-full">
     <div>
       <div
-        class="message"
+        class="flex flex-col flex-start message border border-gray-200 shadow-sm rounded-md bg-transparent"
         v-for="message in messages"
         :key="message.id"
       >
         <div
-          class="message-owner pb-2"
+          class="font-bold pb-2"
         >
           {{ message.owner }}
         </div>
         <div
-          class="message-content"
+          class="font-normal text-left"
         >
           {{ message.content }}
         </div>
@@ -62,22 +62,9 @@ export default {
 @import 'src/assets/scss/_variables.scss';
 
 .message {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   height: auto;
-  max-width: 400px;
-  background: $color-white;
+  max-width: 500px;
   margin: 10px;
   padding: 10px;
-  border-radius: 2px;
-  border: 1px solid $color-primary-light-2;
-  box-shadow: 0px 4px 13px rgba(0, 0, 0, 0.04);
-  .message-owner {
-    font-weight: $font-weight-bold;
-  }
-  .message-content {
-    font-weight: $font-weight;
-  }
 }
 </style>
