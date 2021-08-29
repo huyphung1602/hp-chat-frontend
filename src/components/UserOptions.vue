@@ -9,10 +9,10 @@
         @click.prevent="toggleDropdown()"
       >
         <!-- Heroicon name: solid/chevron-down -->
-        <svg v-if="!showDropdown" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg v-if="!showDropdown" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
-        <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
         </svg>
         
@@ -48,21 +48,21 @@
       >
         <div class="py-1" role="none">
           <div
-            class="text-gray-700 block px-4 py-2 text-sm cursor-pointer"
+            class="text-gray-700 block px-4 py-2 text-sm cursor-pointer hover:bg-gray-100 focus:bg-gray-50"
             role="menuitem"
             tabindex="-1" id="menu-item-0"
           >
             Create Room
           </div>
           <div
-            class="text-gray-700 block px-4 py-2 text-sm cursor-pointer"
+            class="text-gray-700 block px-4 py-2 text-sm cursor-pointer hover:bg-gray-100 focus:bg-gray-50"
             role="menuitem"
             tabindex="-1" id="menu-item-0"
           >
             Join Room
           </div>
           <div
-            class="text-gray-700 block px-4 py-2 text-sm cursor-pointer"
+            class="text-gray-700 block px-4 py-2 text-sm cursor-pointer hover:bg-gray-100 focus:bg-gray-50"
             role="menuitem"
             tabindex="-1" id="menu-item-0"
           >
