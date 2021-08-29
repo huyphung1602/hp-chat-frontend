@@ -2,11 +2,12 @@
   <div class="relative grid grid-cols-12 bg-gray-50 overflow-hidden">
     <div class="col-span-2 bg-indigo-50 h-screen">
       <div
-        class="h-20 flex items-center justify-start border-b border-gray-200 px-4 shadow-sm"
+        class="h-20 flex items-center justify-between border-b border-gray-200 px-4 shadow-sm"
       >
         <div class="font-bold text-center">
           {{ currentUser.name }}
         </div>
+        <user-options />
       </div>
       <div class="overflow-y-auto h-full">
         <div
@@ -38,8 +39,13 @@ import consumer from '@/api/consumer.ts';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
+import UserOptions from './UserOptions.vue';
+
 export default {
   name: 'RoomList',
+  components: {
+    UserOptions,
+  },
   setup() {
     const rooms = ref([]);
     const activeRoomId = ref();
