@@ -39,7 +39,7 @@
     >
       <div
         v-show="showDropdown"
-        class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+        class="origin-top-right absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
         :class="{'transition ease-out duration-100': showDropdown}"
         role="menu"
         aria-orientation="vertical"
@@ -65,6 +65,7 @@
             class="text-gray-700 block px-4 py-2 text-sm cursor-pointer hover:bg-gray-100 focus:bg-gray-50"
             role="menuitem"
             tabindex="-1" id="menu-item-0"
+            @click.prevent="signOut()"
           >
             Sign out
           </div>
@@ -76,16 +77,28 @@
 
 <script>
 import { ref } from 'vue';
+import { destroySession } from '@/api/sessionApi.ts';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 
 export default {
   name: 'UserOptions',
   setup() {
     const showDropdown = ref(false);
+    const store = useStore();
+    const router = useRouter();
 
     const toggleDropdown = () => showDropdown.value = !showDropdown.value;
+    const signOut = async () => {
+      await destroySession();
+      store.dispatch('setLoginStatus', false);
+      router.push({ path: '/sign_in' });
+    }
+
     return {
       showDropdown,
       toggleDropdown,
+      signOut,
     };
   }
 }
