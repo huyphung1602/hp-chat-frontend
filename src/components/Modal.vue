@@ -1,13 +1,13 @@
 <template>
   <transition name="modal-fade">
     <div class="fixed inset-0 flex justify-center items-center bg-opacity-30 bg-gray-900">
-      <div class="modal"
+      <div class="modal border rounded-md bg-white shadow-lg overflow-x-auto flex flex-col"
         role="dialog"
         aria-labelledby="modalTitle"
         aria-describedby="modalDescription"
       >
         <header
-          class="modal-header"
+          class="py-5 pl-5 flex border-b"
           id="modalTitle"
         >
           <slot name="header">
@@ -32,18 +32,18 @@
           </slot>
         </section>
 
-        <footer class="modal-footer">
+        <footer class="py-5 pl-5 flex flex-col border-t">
           <slot name="footer">
-            This is the default footer!
-          </slot>
-          <button
-            type="button"
-            class="btn-green"
-            @click="close"
-            aria-label="Close modal"
-          >
-            Close me!
+            <button
+              type="button"
+              class="btn-green"
+              @click="close"
+              aria-label="Close modal"
+            >
+              Cancel
           </button>
+          </slot>
+
         </footer>
       </div>
     </div>
@@ -61,31 +61,10 @@
   };
 </script>
 
-<style>
+<style lang="scss" scoped>
+
   .modal {
-    background: #FFFFFF;
-    box-shadow: 2px 2px 20px 1px;
-    overflow-x: auto;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .modal-header,
-  .modal-footer {
-    padding: 15px;
-    display: flex;
-  }
-
-  .modal-header {
-    position: relative;
-    border-bottom: 1px solid #eeeeee;
-    color: #4AAE9B;
-    justify-content: space-between;
-  }
-
-  .modal-footer {
-    border-top: 1px solid #eeeeee;
-    flex-direction: column;
+    width: 500px;
   }
 
   .modal-body {

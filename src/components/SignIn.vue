@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center justify-center h-screen">
-    <div class="sign-in-form flex flex-col border rounded shadow p-10">
+    <div class="sign-in-form flex flex-col border rounded shadow-md p-10">
       <div class="text-4xl font-bold text-left text-indigo-700 pb-2">
         Sign In
       </div>
