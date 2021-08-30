@@ -36,7 +36,7 @@
           </slot>
         </section>
 
-        <footer class="p-4 flex flex-row justify-end border-t bg-gray-100">
+        <footer class="p-2 flex flex-row justify-end border-t bg-gray-100">
           <slot name="footer">
             <button
               class="rounded-md bg-indigo-600 font-normal text-sm text-white hover:bg-indigo-900 focus::bg-indigo-900 focus:outline-none p-2 mr-3"
