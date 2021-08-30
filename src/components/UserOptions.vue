@@ -105,7 +105,10 @@ export default {
       store.dispatch('setLoginStatus', false);
       router.push({ path: '/sign_in' });
     }
-    const openCreateRoomModal = () => showCreateRoomModal.value = true;
+    const openCreateRoomModal = () => {
+      showCreateRoomModal.value = true;
+      showDropdown.value = false;
+    }
     const closeCreateRoomModal = () => showCreateRoomModal.value = false;
 
     return {
