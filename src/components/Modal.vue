@@ -1,21 +1,23 @@
 <template>
   <transition name="modal-fade">
     <div class="fixed inset-0 flex justify-center items-center bg-opacity-30 bg-gray-900">
-      <div class="modal border rounded-md bg-white shadow-lg overflow-x-auto flex flex-col"
+      <div class="w-80 border rounded-md bg-white shadow-lg overflow-x-auto flex flex-col"
         role="dialog"
         aria-labelledby="modalTitle"
         aria-describedby="modalDescription"
       >
         <header
-          class="py-5 pl-5 flex border-b"
+          class="p-5 flex flex-row justify-between border-b"
           id="modalTitle"
         >
           <slot name="header">
-            This is the default tile!
+            <div class="font-normal text-sm text-gray-800">
+              This is the default tile.
+            </div>
           </slot>
           <button
+            class="text-sm text-gray-500"
             type="button"
-            class="btn-close"
             @click="close"
             aria-label="Close modal"
           >
@@ -24,24 +26,34 @@
         </header>
 
         <section
-          class="modal-body"
+          class="relative py-5 pl-5"
           id="modalDescription"
         >
           <slot name="body">
-            This is the default body!
+            <div class="font-normal text-sm text-gray-800">
+              This is the default body.
+            </div>
           </slot>
         </section>
 
-        <footer class="py-5 pl-5 flex flex-col border-t">
+        <footer class="p-4 flex flex-row justify-end border-t bg-gray-100">
           <slot name="footer">
             <button
+              class="rounded-md bg-indigo-600 font-normal text-sm text-white hover:bg-indigo-900 focus::bg-indigo-900 focus:outline-none p-2 mr-3"
               type="button"
-              class="btn-green"
+              @click="resolve"
+              aria-label="Submit modal"
+            >
+              Submit
+            </button>
+            <button
+              class="rounded-md bg-gray-200 font-normal text-sm text-gray-500 hover:bg-gray-300 focus::bg-gray-400 focus:outline-none p-2"
+              type="button"
               @click="close"
               aria-label="Close modal"
             >
               Cancel
-          </button>
+            </button>
           </slot>
 
         </footer>
@@ -53,45 +65,20 @@
 <script>
   export default {
     name: 'Modal',
-    methods: {
-      close() {
-        this.$emit('close');
-      },
-    },
+    emits: ['close', 'resolve'],
+    setup(props, { emit }) {
+      const close = () => emit('close');
+      const resolve = () => emit('resolve');
+
+      return {
+        close,
+        resolve,
+      };
+    }
   };
 </script>
 
 <style lang="scss" scoped>
-
-  .modal {
-    width: 500px;
-  }
-
-  .modal-body {
-    position: relative;
-    padding: 20px 10px;
-  }
-
-  .btn-close {
-    position: absolute;
-    top: 0;
-    right: 0;
-    border: none;
-    font-size: 20px;
-    padding: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #4AAE9B;
-    background: transparent;
-  }
-
-  .btn-green {
-    color: white;
-    background: #4AAE9B;
-    border: 1px solid #4AAE9B;
-    border-radius: 2px;
-  }
-
   .modal-fade-enter,
   .modal-fade-leave-to {
     opacity: 0;
