@@ -41,8 +41,6 @@
       const resolve = async () => {
         try {
           const newRoom = await createRoom({ name: roomName.value });
-
-          console.log(newRoom);
           store.commit('appendRoom', newRoom);
           roomName.value = '';
           emit('resolve');
