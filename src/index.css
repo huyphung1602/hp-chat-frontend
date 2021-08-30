@@ -2,3 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
+.sign-in-form, .sign-up-form {
+  width: 400px;
+}
