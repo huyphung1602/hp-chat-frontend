@@ -33,7 +33,7 @@
         </header>
 
         <section
-          class="relative py-5 pl-5"
+          class="relative p-5"
           id="modalDescription"
         >
           <slot name="body">

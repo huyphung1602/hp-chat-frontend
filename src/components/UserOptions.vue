@@ -51,7 +51,7 @@
             class="text-gray-700 block px-4 py-2 text-sm cursor-pointer hover:bg-gray-100 focus:bg-gray-50"
             role="menuitem"
             tabindex="-1" id="menu-item-0"
-            @click.prevent="showModal"
+            @click.prevent="openCreateRoomModal"
           >
             Create Room
           </div>
@@ -73,9 +73,10 @@
         </div>
       </div>
     </transition>
-    <modal
-      v-show="isModalVisible"
-      @close="closeModal"
+    <create-room-modal
+      v-show="showCreateRoomModal"
+      @close="closeCreateRoomModal"
+      @resolve="closeCreateRoomModal"
     />
   </div>
 </template>
@@ -85,18 +86,18 @@ import { ref } from 'vue';
 import { destroySession } from '@/api/sessionApi.ts';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
-import Modal from './Modal.vue';
+import CreateRoomModal from './CreateRoomModal.vue';
 
 export default {
   name: 'UserOptions',
   components: {
-    Modal,
+    CreateRoomModal,
   },
   setup() {
     const showDropdown = ref(false);
     const store = useStore();
     const router = useRouter();
-    const isModalVisible = ref(false);
+    const showCreateRoomModal = ref(false);
 
     const toggleDropdown = () => showDropdown.value = !showDropdown.value;
     const signOut = async () => {
@@ -104,16 +105,16 @@ export default {
       store.dispatch('setLoginStatus', false);
       router.push({ path: '/sign_in' });
     }
-    const showModal = () => isModalVisible.value = true;
-    const closeModal = () => isModalVisible.value = false;
+    const openCreateRoomModal = () => showCreateRoomModal.value = true;
+    const closeCreateRoomModal = () => showCreateRoomModal.value = false;
 
     return {
       showDropdown,
       toggleDropdown,
       signOut,
-      showModal,
-      closeModal,
-      isModalVisible,
+      openCreateRoomModal,
+      closeCreateRoomModal,
+      showCreateRoomModal,
     };
   }
 }
