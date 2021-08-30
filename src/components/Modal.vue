@@ -1,5 +1,12 @@
 <template>
-  <transition name="modal-fade">
+  <transition
+    enter-active-class="transition ease duration-50"
+    enter-from-class="transform opacity-0"
+    enter-to-class="transform opacity-100"
+    leave-active-class="transition ease duration-50"
+    leave-from-class="transform opacity-100"
+    leave-to-class="transform opacity-0"
+  >
     <div class="fixed inset-0 flex justify-center items-center bg-opacity-30 bg-gray-900">
       <div class="w-80 border rounded-md bg-white shadow-lg overflow-x-auto flex flex-col"
         role="dialog"
@@ -77,15 +84,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  .modal-fade-enter,
-  .modal-fade-leave-to {
-    opacity: 0;
-  }
-
-  .modal-fade-enter-active,
-  .modal-fade-leave-active {
-    transition: opacity .5s ease;
-  }
-</style>
