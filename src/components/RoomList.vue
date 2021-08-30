@@ -12,7 +12,7 @@
       <div class="overflow-y-auto h-full">
         <div
           class="border-b border-gray-200 py-2 px-4 cursor-pointer"
-          :class="{'active-room shadow': activeRoomId === room.id }"
+          :class="{'active-room shadow-inner': activeRoomId === room.id }"
           v-for="room in rooms"
           :key="room.id"
           @click.prevent="fetchRoomMessages(room.id)"
