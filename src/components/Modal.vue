@@ -1,6 +1,6 @@
 <template>
   <transition name="modal-fade">
-    <div class="modal-backdrop">
+    <div class="fixed inset-0 flex justify-center items-center bg-opacity-30 bg-gray-900">
       <div class="modal"
         role="dialog"
         aria-labelledby="modalTitle"
@@ -62,18 +62,6 @@
 </script>
 
 <style>
-  .modal-backdrop {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
   .modal {
     background: #FFFFFF;
     box-shadow: 2px 2px 20px 1px;
