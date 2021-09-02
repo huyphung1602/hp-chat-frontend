@@ -11,21 +11,39 @@
       </div>
       <div class="overflow-y-auto h-full">
         <div
-          class="border-b border-gray-200 py-2 px-4 cursor-pointer"
+          class="border-b border-gray-200 py-2 px-4"
           :class="{'active-room shadow-inner': activeRoomId === room.id }"
           v-for="room in rooms"
           :key="room.id"
-          @click.prevent="fetchRoomMessages(room.id)"
         >
-          <div class="font-normal pb-1">
-            {{ room.name }}
-          </div>
-          <div class="font-semibold">
-            Owner: {{ room.owner.name }}
+          <div class="flex flex-row items-center justify-between">
+            <div
+              class="w-full cursor-pointer"
+              @click.prevent="fetchRoomMessages(room.id)"
+            >
+              <div class="font-normal pb-1">
+                {{ room.name }}
+              </div>
+              <div class="font-semibold">
+                Owner: {{ room.owner.name }}
+              </div>
+            </div>
+            <div
+              class="cursor-pointer flex items-center justify-center text-gray-700 h-10 w-10"
+              @click.prevent="openInvitationGenerationModal"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <invitation-generation-modal
+      v-show="showInvitationGenerationModal"
+      @close="closeInvitationGenerationModal"
+    />
     <div class="border-l col-span-10">
       <router-view />
     </div>
@@ -40,15 +58,18 @@ import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
 import UserOptions from './UserOptions.vue';
+import InvitationGenerationModal from './modals/InvitationGenerationModal.vue';
 
 export default {
   name: 'RoomList',
   components: {
     UserOptions,
+    InvitationGenerationModal,
   },
   setup() {
     const rooms = ref([]);
     const activeRoomId = ref();
+    const showInvitationGenerationModal = ref(false);
 
     const store = useStore()
     const router = useRouter();
@@ -84,11 +105,19 @@ export default {
       each(rooms.value, room => subscribeWebSocket(room));
     });
 
+    const openInvitationGenerationModal = () => {
+      showInvitationGenerationModal.value = true;
+    }
+    const closeInvitationGenerationModal = () => showInvitationGenerationModal.value = false;
+
     return {
       rooms,
       fetchRoomMessages,
       activeRoomId,
       currentUser,
+      showInvitationGenerationModal,
+      openInvitationGenerationModal,
+      closeInvitationGenerationModal,
     };
   }
 }

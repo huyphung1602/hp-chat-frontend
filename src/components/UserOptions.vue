@@ -68,7 +68,7 @@ import { ref } from 'vue';
 import { destroySession } from '@/api/sessionApi.ts';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
-import CreateRoomModal from './CreateRoomModal.vue';
+import CreateRoomModal from './modals/CreateRoomModal.vue';
 
 export default {
   name: 'UserOptions',

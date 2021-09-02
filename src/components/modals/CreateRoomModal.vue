@@ -25,7 +25,7 @@
   import { createRoom } from '@/api/roomApi.ts';
   import { useStore } from 'vuex';
 
-  import Modal from './Modal.vue';
+  import Modal from '../Modal.vue';
 
   export default {
     name: 'CreateRoomModal',
