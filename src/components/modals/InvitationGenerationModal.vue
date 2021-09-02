@@ -3,12 +3,18 @@
     @close="close"
   >
     <template v-slot:header>
-      <div class="font-normal text-sm text-gray-800">
-        Invitation Link
+      <div class="font-semibold text-md text-gray-800">
+        Send this url to your friends
       </div>
     </template>
     <template v-slot:body>
-      <p>Link will be generated here</p>
+      <input
+        v-model="invitationUrl"
+        readonly
+        type="text"
+        placeholder="Type your room name"
+        class="p-1 text-sm font-normal w-full border rounded-md focus:outline-none focus:ring focus:border-blue-400"
+      />
     </template>
     <template v-slot:footer>
       <button
@@ -24,7 +30,7 @@
 </template>
 
 <script>
-  import { ref } from 'vue';
+  import { computed } from 'vue';
 
   import Modal from '../Modal.vue';
 
@@ -33,12 +39,19 @@
     components: {
       Modal,
     },
+    props: {
+      invitationUrl: {
+        type: String,
+        default: '',
+      },
+    },
     emits: ['close'],
     setup(props, { emit }) {
-      const roomName = ref('');
       const close = () => emit('close');
+      const invitationUrl = computed(() => props.invitationUrl);
+
       return {
-        roomName,
+        invitationUrl,
         close,
       };
     }

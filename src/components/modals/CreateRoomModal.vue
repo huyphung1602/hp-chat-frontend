@@ -4,7 +4,7 @@
     @resolve="resolve"
   >
     <template v-slot:header>
-      <div class="font-normal text-sm text-gray-800">
+      <div class="font-semibold text-md text-gray-800">
         Create new chat room
       </div>
     </template>

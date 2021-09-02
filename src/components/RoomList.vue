@@ -29,8 +29,9 @@
               </div>
             </div>
             <div
+              v-if="currentUser.id === room.owner.id"
               class="cursor-pointer flex items-center justify-center text-gray-700 h-10 w-10"
-              @click.prevent="openInvitationGenerationModal"
+              @click.prevent="openInvitationGenerationModal(room.id)"
             >
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -43,6 +44,7 @@
     <invitation-generation-modal
       v-show="showInvitationGenerationModal"
       @close="closeInvitationGenerationModal"
+      :invitation-url="invitationUrl"
     />
     <div class="border-l col-span-10">
       <router-view />
@@ -56,6 +58,7 @@ import { onMounted, ref } from 'vue';
 import consumer from '@/api/consumer.ts';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+import { createInvitation } from '@/api/invitation.ts';
 
 import UserOptions from './UserOptions.vue';
 import InvitationGenerationModal from './modals/InvitationGenerationModal.vue';
@@ -69,6 +72,7 @@ export default {
   setup() {
     const rooms = ref([]);
     const activeRoomId = ref();
+    const invitationUrl = ref('');
     const showInvitationGenerationModal = ref(false);
 
     const store = useStore()
@@ -105,7 +109,9 @@ export default {
       each(rooms.value, room => subscribeWebSocket(room));
     });
 
-    const openInvitationGenerationModal = () => {
+    const openInvitationGenerationModal = async (roomId) => {
+      const data = await createInvitation(roomId);
+      invitationUrl.value = data.invitation_url;
       showInvitationGenerationModal.value = true;
     }
     const closeInvitationGenerationModal = () => showInvitationGenerationModal.value = false;
@@ -115,6 +121,7 @@ export default {
       fetchRoomMessages,
       activeRoomId,
       currentUser,
+      invitationUrl,
       showInvitationGenerationModal,
       openInvitationGenerationModal,
       closeInvitationGenerationModal,
