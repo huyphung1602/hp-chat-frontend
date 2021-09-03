@@ -6,8 +6,10 @@
 
 <script>
   import { get } from 'lodash';
+  import { onMounted } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import { useStore } from 'vuex';
+  import { acceptInvitation } from '@/api/invitationApi.ts';
 
   export default {
     name: 'Invitation',
@@ -15,16 +17,24 @@
       const route = useRoute();
       const router = useRouter();
       const store = useStore();
+
       const code = get(route.query, 'code', '');
       const id = get(route.query, 'id', '');
       store.dispatch('setInvitation', { code, id });
 
-      const isLoggedIn = store.getters.isLoggedIn;
-      if (isLoggedIn) {
-        router.push({path: '/'});
-      } else {
-        router.push({path: '/sign_in'});
-      }
+      onMounted(async () => {
+        const isLoggedIn = store.getters.isLoggedIn;
+        console.log(isLoggedIn);
+
+        if (isLoggedIn) {
+          const data = await acceptInvitation({code, id});
+          if (data.room_id) {
+            router.push({ name: 'room', params: { id: data.room_id }});
+          }
+        } else {
+          router.push({path: '/sign_in'});
+        }
+      });
     }
   };
 </script>

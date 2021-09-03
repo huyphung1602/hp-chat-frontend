@@ -58,7 +58,7 @@ import { onMounted, ref } from 'vue';
 import consumer from '@/api/consumer.ts';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
-import { createInvitation } from '@/api/invitation.ts';
+import { createInvitation } from '@/api/invitationApi.ts';
 
 import UserOptions from './UserOptions.vue';
 import InvitationGenerationModal from './modals/InvitationGenerationModal.vue';
