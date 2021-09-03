@@ -8,5 +8,8 @@
 
 export default {
   name: 'App',
+  setup() {
+    document.title = import.meta.env.VITE_APP_TITLE;
+  }
 }
 </script>
