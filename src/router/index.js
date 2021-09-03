@@ -3,6 +3,7 @@ import SignIn from '@/components/SignIn.vue';
 import SignUp from '@/components/SignUp.vue';
 import RoomList from '@/components/RoomList.vue';
 import Room from '@/components/Room.vue';
+import Invitation from '@/components/Invitation.vue';
 import { fetchCurrentUserInfo } from '@/api/sessionApi.ts';
 import store from '@/store';
 
@@ -28,6 +29,10 @@ const routes = [
   {
     path: '/sign_up',
     component: SignUp,
+  },
+  {
+    path: '/invitation',
+    component: Invitation,
   },
 ];
 
