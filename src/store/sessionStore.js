@@ -1,4 +1,3 @@
-
 const sessionStore = {
   state: () => ({
     isLoggedIn: null,
