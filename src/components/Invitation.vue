@@ -29,7 +29,8 @@
         if (isLoggedIn) {
           const data = await acceptInvitation({code, id});
           if (data.room_id) {
-            router.push({ name: 'room', params: { id: data.room_id }});
+            store.commit('setActiveRoomId', data.room_id);
+            router.push({path: '/'});
           }
         } else {
           router.push({path: '/sign_in'});

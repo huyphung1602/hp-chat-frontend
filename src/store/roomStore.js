@@ -6,6 +6,7 @@ const roomStore = {
   state: () => ({
     messages: {},
     rooms: [],
+    activeRoomId: null,
   }),
 
   mutations: {
@@ -21,7 +22,10 @@ const roomStore = {
     },
     appendRoom (state, room ) {
       state.rooms.push(room);
-    }
+    },
+    setActiveRoomId (state, roomId) {
+      state.activeRoomId = roomId;
+    },
   },
 
   actions: {
@@ -62,7 +66,10 @@ const roomStore = {
     roomById: (state) => (roomId) => {
       const room = state.rooms.filter(room => room.id === roomId)[0]
       return !!room ? room : {};
-    }
+    },
+    activeRoomId (state) {
+      return state.activeRoomId;
+    },
   },
 }
 

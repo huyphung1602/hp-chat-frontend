@@ -91,6 +91,7 @@ export default {
     const fetchRoomMessages = roomId => {
       store.dispatch('fetchMessages', roomId);
       activeRoomId.value = roomId;
+      store.commit('setActiveRoomId', roomId);
       router.push({ name: 'room', params: { id: roomId }});
     };
 
@@ -101,9 +102,9 @@ export default {
       if (rooms.value.length > 0) {
         // Fetch default active room
         const defaultRoomId = rooms.value[0].id;
-        activeRoomId.value = defaultRoomId;
-        store.dispatch('fetchMessages', defaultRoomId);
-        router.push({ name: 'room', params: { id: defaultRoomId }});
+        activeRoomId.value = store.getters.activeRoomId || defaultRoomId;
+        store.dispatch('fetchMessages', activeRoomId.value);
+        router.push({ name: 'room', params: { id: activeRoomId.value }});
       }
 
       each(rooms.value, room => subscribeWebSocket(room));
