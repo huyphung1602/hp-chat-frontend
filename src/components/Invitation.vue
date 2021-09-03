@@ -9,7 +9,7 @@
   import { onMounted } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import { useStore } from 'vuex';
-  import { acceptInvitation } from '@/api/invitationApi.ts';
+  import { acceptInvitation } from '@/services/invitationService.ts';
 
   export default {
     name: 'Invitation',
@@ -27,11 +27,8 @@
         console.log(isLoggedIn);
 
         if (isLoggedIn) {
-          const data = await acceptInvitation({code, id});
-          if (data.room_id) {
-            store.commit('setActiveRoomId', data.room_id);
-            router.push({path: '/'});
-          }
+          await acceptInvitation(store);
+          router.push({ path: '/' });
         } else {
           router.push({path: '/sign_in'});
         }

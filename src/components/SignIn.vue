@@ -42,11 +42,14 @@
 <script>
 import { ref } from 'vue';
 import { createSession } from '@/api/sessionApi.ts';
+import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+import { acceptInvitation } from '@/services/invitationService.ts';
 
 export default {
   name: 'SignIn',
   setup() {
+    const store = useStore();
     const router = useRouter();
     const email = ref('');
     const password = ref('');
@@ -67,7 +70,8 @@ export default {
       errMsg.value = '';
       try {
         await createSession(email.value, password.value);
-        window.location.replace('/');
+        await acceptInvitation(store);
+        router.push({ path: '/' });
       } catch (err) {
         errMsg.value = err.response.data.errors;
       }

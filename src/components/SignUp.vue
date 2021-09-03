@@ -52,11 +52,14 @@
 <script>
 import { ref } from 'vue';
 import { createUser } from '@/api/userApi.ts';
+import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+import { acceptInvitation } from '@/services/invitationService.ts';
 
 export default {
   name: 'SignUp',
   setup() {
+    const store = useStore();
     const router = useRouter();
     const name = ref('');
     const email = ref('');
@@ -83,7 +86,8 @@ export default {
       errMsg.value = '';
       try {
         await createUser(name.value, email.value, password.value);
-        window.location.replace('/');
+        await acceptInvitation(store);
+        router.push({ path: '/' });
       } catch (err) {
         errMsg.value = err.response.data.errors;
       }
