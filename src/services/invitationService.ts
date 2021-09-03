@@ -7,5 +7,6 @@ export const acceptInvitation = async (store): Promise<any> => {
     if (data.room_id) {
       store.commit('setActiveRoomId', data.room_id);
     }
+    store.commit('setInvitation', {code: '', id: ''});
   }
 }
